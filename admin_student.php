@@ -15,15 +15,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['action'])) {
 
         if ($_POST['action'] === 'add_student') {
-            $stmt = mysqli_prepare($conn, "INSERT INTO students (UserId, StudentType, Iotstudent, Semester, SchoolYear,Summer, Sex, Lastname, Firstname, Middlename, Course, Yearlevel, SAddress, SNumber, SEmail, PFullname, PAddress, PNumber, PEmail) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?,?)");
-            mysqli_stmt_bind_param($stmt, "issssssssssssssssss",$_SESSION['user_id'],$_POST['type'], $_POST['iotstudent'], $_POST['semester'], $_POST['schoolyear'], $_POST['summer'], $_POST['sex'], $_POST['lastname'], $_POST['firstname'], $_POST['middlename'], $_POST['course'], $_POST['yearlevel'], $_POST['address'], $_POST['mobile'], $_POST['email'], $_POST['pfull'], $_POST['padd'], $_POST['pnum'], $_POST['pemail']);
-           if (mysqli_stmt_execute($stmt)) {
+            try {
+                $stmt = mysqli_prepare($conn, "INSERT INTO students (UserId, StudentType, Iotstudent, Semester, SchoolYear, Summer, Sex, Lastname, Firstname, Middlename, Course, Yearlevel, SAddress, SNumber, SEmail, PFullname, PAddress, PNumber, PEmail) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                
+                mysqli_stmt_bind_param($stmt, "issssssssssssssssss", $_SESSION['user_id'], $_POST['type'], $_POST['iotstudent'], $_POST['semester'], $_POST['schoolyear'], $_POST['summer'], $_POST['sex'], $_POST['lastname'], $_POST['firstname'], $_POST['middlename'], $_POST['course'], $_POST['yearlevel'], $_POST['address'], $_POST['mobile'], $_POST['email'], $_POST['pfull'], $_POST['padd'], $_POST['pnum'], $_POST['pemail']);
+
+                mysqli_stmt_execute($stmt);
                 $message = "Student record added successfully!";
-            } else {
-                $error = "Database Error: " . mysqli_stmt_error($stmt);
+
+            } catch (mysqli_sql_exception $e) {
+                if ($e->getCode() === 1062) {
+                    $error = "Database Error: The student email address '{$_POST['email']}' is already registered in the system.";
+                } else {
+                    $error = "Database Error: " . $e->getMessage();
+                }
             }
-            
-        } 
+        }
+
        elseif ($_POST['action'] === 'update_student') {
             $stmt = mysqli_prepare($conn, "UPDATE students SET UserId = ?, StudentType = ?, Iotstudent = ?, Semester = ?, SchoolYear = ?, Summer = ?, Sex = ?, Lastname = ?, Firstname = ?, Middlename = ?, Course = ?, Yearlevel = ?, SAddress = ?, SNumber = ?, SEmail = ?, PFullname = ?, PAddress = ?, PNumber = ?, PEmail = ? WHERE StudentId = ?");
             

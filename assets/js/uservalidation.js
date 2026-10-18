@@ -7,6 +7,7 @@ document.getElementById('userFormA').addEventListener('submit', function(event) 
 
     const mobile = document.getElementById('mobileNumber').value.trim();
     const pmobile = document.getElementById('pmobileNumber').value.trim();
+    const semail = document.getElementById('emailAddress').value.trim();
     const pemail = document.getElementById('pemailAddress').value.trim();
 
     const nameRegex = /^[A-Z][A-Za-z\s'-]*$/;
@@ -49,6 +50,12 @@ document.getElementById('userFormA').addEventListener('submit', function(event) 
         return;
     }
 
+    if (!emailRegex.test(semail)) {
+        alert("Student email must end with @gmail.com.");
+        event.preventDefault();
+        return;
+    }
+    
     if (!emailRegex.test(pemail)) {
         alert("Parent email must end with @gmail.com.");
         event.preventDefault();

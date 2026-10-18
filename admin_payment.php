@@ -336,27 +336,27 @@ include ('UI/sidenav.php');
                         <input type="hidden" name="student_id" value="<?= $pay['StudentId'] ?>">
                         <td class="p-2 border"><?= $pay['Id'] ?></td>
                         <td class="p-2 border"><?= $pay['StudentId'] ?></td>
-                        <td class="p-2 border"><input type="text" step="1" min="0" name="units" value="<?= htmlspecialchars($pay['Totalunits']) ?>" class="w-full border rounded p-1" required></td>
-                        <td class="p-2 border"><input type="text" step="0.01" name="tuition" value="<?= htmlspecialchars($pay['Tuitionfee']) ?>" class="w-full border rounded p-1" required></td>
-                        <td class="p-2 border"><input type="text" step="0.01" name="register" value="<?= htmlspecialchars($pay['Registrationfee']) ?>" class="w-full border rounded p-1" required></td>
-                        <td class="p-2 border"><input type="text" step="0.01" name="lib" value="<?= htmlspecialchars($pay['Libraryfee']) ?>" class="w-full border rounded p-1" required></td>
-                        <td class="p-2 border"><input type="text" step="0.01" name="med" value="<?= htmlspecialchars($pay['MedicalDentalfee']) ?>" class="w-full border rounded p-1" required></td>
-                        <td class="p-2 border"><input type="text" step="0.01" name="guide" value="<?= htmlspecialchars($pay['Guidancefee']) ?>" class="w-full border rounded p-1" required></td>
-                        <td class="p-2 border"><input type="text" step="0.01" name="lab" value="<?= htmlspecialchars($pay['Labfee']) ?>" class="w-full border rounded p-1" required></td>
-                        <td class="p-2 border"><input type="text" step="0.01" name="net" value="<?= htmlspecialchars($pay['Internetfee']) ?>" class="w-full border rounded p-1" required></td>
-                        <td class="p-2 border"><input type="text" step="0.01" name="org" value="<?= htmlspecialchars($pay['Studentorgfee']) ?>" class="w-full border rounded p-1" required></td>
-                        <td class="p-2 border"><input type="text" step="0.01" name="pub" value="<?= htmlspecialchars($pay['Schoolpubfee']) ?>" class="w-full border rounded p-1" required></td>
-                        <td class="p-2 border"><input type="text" step="0.01" name="id" value="<?= htmlspecialchars($pay['SchoolIdfee']) ?>" class="w-full border rounded p-1" required></td>
-                        <td class="p-2 border"><input type="text" step="0.01" name="ath" value="<?= htmlspecialchars($pay['Athleticfee']) ?>" class="w-full border rounded p-1" required></td>
-                        <td class="p-2 border"><input type="text" step="0.01" name="act" value="<?= htmlspecialchars($pay['Studentactfee']) ?>" class="w-full border rounded p-1" required></td>
-                        <td class="p-2 border"><input type="text" step="0.01"name="ins" value="<?= htmlspecialchars($pay['Insurancefee']) ?>" class="w-full border rounded p-1" required></td>
-                        <td class="p-2 border"><input type="text" step="0.01"name="cul" value="<?= htmlspecialchars($pay['Culturalfee']) ?>" class="w-full border rounded p-1" required></td>
-                        <td class="p-2 border"><input type="text" step="0.01" name="pri" value="<?= htmlspecialchars($pay['PRISAA']) ?>" class="w-full border rounded p-1" required></td>
-                        <td class="p-2 border"><input type="text" step="0.01" name="sec" value="<?= htmlspecialchars($pay['Securityfee']) ?>" class="w-full border rounded p-1" required></td>
-                        <td class="p-2 border"><input type="text" step="0.01" name="energy" value="<?= htmlspecialchars($pay['Energyfee']) ?>" class="w-full border rounded p-1" required></td>
-                        <td class="p-2 border"><input type="text" step="0.01" name="hand" value="<?= htmlspecialchars($pay['Handbookfee']) ?>" class="w-full border rounded p-1" required></td>
-                        <td class="p-2 border"><input type="text" step="0.01" name="crim" value="<?= htmlspecialchars($pay['Crimlabfee']) ?>" class="w-full border rounded p-1" required></td>
-                        <td class="p-2 border"><input type="text" step="0.01" name="total" value="<?= htmlspecialchars($pay['Totalamount']) ?>" class="w-full border rounded p-1" required></td>
+                        <td class="p-2 border"><input type="text" step="1" min="0" name="units" id="units-<?= $pay['Id'] ?>" value="<?= htmlspecialchars($pay['Totalunits']) ?>" class="w-full border rounded p-1" required></td>
+                        <td class="p-2 border"><input type="text" step="0.01" name="tuition" id="tuition-<?= $pay['Id'] ?>" value="<?= htmlspecialchars($pay['Tuitionfee']) ?>" class="w-full border rounded p-1" required></td>
+                        <td class="p-2 border"><input type="text" step="0.01" name="register" id="reg-<?= $pay['Id'] ?>" value="<?= htmlspecialchars($pay['Registrationfee']) ?>" class="w-full border rounded p-1" required></td>
+                        <td class="p-2 border"><input type="text" step="0.01" name="lib" id="lib-<?= $pay['Id'] ?>" value="<?= htmlspecialchars($pay['Libraryfee']) ?>" class="w-full border rounded p-1" required></td>
+                        <td class="p-2 border"><input type="text" step="0.01" name="med" id="med-<?= $pay['Id'] ?>" value="<?= htmlspecialchars($pay['MedicalDentalfee']) ?>" class="w-full border rounded p-1" required></td>
+                        <td class="p-2 border"><input type="text" step="0.01" name="guide" id="guide-<?= $pay['Id'] ?>" value="<?= htmlspecialchars($pay['Guidancefee']) ?>" class="w-full border rounded p-1" required></td>
+                        <td class="p-2 border"><input type="text" step="0.01" name="lab" id="lab-<?= $pay['Id'] ?>" value="<?= htmlspecialchars($pay['Labfee']) ?>" class="w-full border rounded p-1" required></td>
+                        <td class="p-2 border"><input type="text" step="0.01" name="net" id="net-<?= $pay['Id'] ?>" value="<?= htmlspecialchars($pay['Internetfee']) ?>" class="w-full border rounded p-1" required></td>
+                        <td class="p-2 border"><input type="text" step="0.01" name="org" id="org-<?= $pay['Id'] ?>" value="<?= htmlspecialchars($pay['Studentorgfee']) ?>" class="w-full border rounded p-1" required></td>
+                        <td class="p-2 border"><input type="text" step="0.01" name="pub" id="pub-<?= $pay['Id'] ?>" value="<?= htmlspecialchars($pay['Schoolpubfee']) ?>" class="w-full border rounded p-1" required></td>
+                        <td class="p-2 border"><input type="text" step="0.01" name="id" id="id-<?= $pay['Id'] ?>" value="<?= htmlspecialchars($pay['SchoolIdfee']) ?>" class="w-full border rounded p-1" required></td>
+                        <td class="p-2 border"><input type="text" step="0.01" name="ath" id="ath-<?= $pay['Id'] ?>" value="<?= htmlspecialchars($pay['Athleticfee']) ?>" class="w-full border rounded p-1" required></td>
+                        <td class="p-2 border"><input type="text" step="0.01" name="act" id="act-<?= $pay['Id'] ?>" value="<?= htmlspecialchars($pay['Studentactfee']) ?>" class="w-full border rounded p-1" required></td>
+                        <td class="p-2 border"><input type="text" step="0.01"name="ins" id="ins-<?= $pay['Id'] ?>" value="<?= htmlspecialchars($pay['Insurancefee']) ?>" class="w-full border rounded p-1" required></td>
+                        <td class="p-2 border"><input type="text" step="0.01"name="cul" id="cul-<?= $pay['Id'] ?>" value="<?= htmlspecialchars($pay['Culturalfee']) ?>" class="w-full border rounded p-1" required></td>
+                        <td class="p-2 border"><input type="text" step="0.01" name="pri" id="pri-<?= $pay['Id'] ?>" value="<?= htmlspecialchars($pay['PRISAA']) ?>" class="w-full border rounded p-1" required></td>
+                        <td class="p-2 border"><input type="text" step="0.01" name="sec" id="sec-<?= $pay['Id'] ?>" value="<?= htmlspecialchars($pay['Securityfee']) ?>" class="w-full border rounded p-1" required></td>
+                        <td class="p-2 border"><input type="text" step="0.01" name="energy" id="energy-<?= $pay['Id'] ?>" value="<?= htmlspecialchars($pay['Energyfee']) ?>" class="w-full border rounded p-1" required></td>
+                        <td class="p-2 border"><input type="text" step="0.01" name="hand" id="hand-<?= $pay['Id'] ?>" value="<?= htmlspecialchars($pay['Handbookfee']) ?>" class="w-full border rounded p-1" required></td>
+                        <td class="p-2 border"><input type="text" step="0.01" name="crim" id="crim-<?= $pay['Id'] ?>" value="<?= htmlspecialchars($pay['Crimlabfee']) ?>" class="w-full border rounded p-1" required></td>
+                        <td class="p-2 border"><input type="text" step="0.01" name="total" id="total-<?= $pay['Id'] ?>" value="<?= htmlspecialchars($pay['Totalamount']) ?>" class="w-full border rounded p-1" required></td>
                         <td class="p-2 border"><select name="paym" class="w-24 border rounded p-1" required>
                             <option value="" disabled <?= empty($pay['Paymentmethod']) ? 'selected' : '' ?>>Select Payment Option</option>
                             <option value="Cash / Over-the-Counter" <?= ($pay['Paymentmethod'] ?? '') === 'Cash / Over-the-Counter' ? 'selected' : '' ?>>Cash / Over-the-Counter</option>
@@ -365,12 +365,12 @@ include ('UI/sidenav.php');
                             <option value="Bank Transfer" <?= ($pay['Paymentmethod'] ?? '') === 'Bank Transfer' ? 'selected' : '' ?>>Bank Transfer</option>
                         </select></td>
                         <td class="p-2 border"><select name="status" class="w-24 border rounded p-1" required>
-                            <option value="" disabled <?= empty($pay['Paymentmethod']) ? 'selected' : '' ?>>Select Status</option>
-                            <option value="Paid" <?= ($pay['Paymentmethod'] ?? '') === 'Paid' ? 'selected' : '' ?>>Paid</option>
-                            <option value="Pending" <?= ($pay['Paymentmethod'] ?? '') === 'Pending' ? 'selected' : '' ?>>Pending</option>
+                            <option value="" disabled <?= empty($pay['Status']) ? 'selected' : '' ?>>Select Status</option>
+                            <option value="Paid" <?= ($pay['Status'] ?? '') === 'Paid' ? 'selected' : '' ?>>Paid</option>
+                            <option value="Pending" <?= ($pay['Status'] ?? '') === 'Pending' ? 'selected' : '' ?>>Pending</option>
                         </select></td>
                         <td class="p-2 border flex gap-1">
-                            <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded hover:bg-green-700">Update</button>
+                            <button type="submit" onclick="return validateRow('<?= $pay['Id'] ?>')" class="bg-blue-600 text-white px-2 py-1 rounded hover:bg-green-700">Update</button>
                     </form>
                             <form method="POST" onsubmit="return confirm('Are you sure you want to delete this payment record?');">
                                 <input type="hidden" name="action" value="delete_payment">
@@ -384,7 +384,8 @@ include ('UI/sidenav.php');
         </div>
     </div>
 </div>
-<script src="assets/paymentvalid.php"></script>
+<script src="assets/js/validation.js"></script>
+<script src="assets/js/paymentvalid.js"></script>
 </body>
 <?php include ('UI/footer.php'); ?>
 </html>
