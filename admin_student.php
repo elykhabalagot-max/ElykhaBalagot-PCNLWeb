@@ -226,7 +226,7 @@ include ('UI/sidenav.php');
             </div>
             <div>
                 <label class="block font-semibold mb-1">Middle Name</label>
-                <input type="text" name="middlename" id="middleName" required class="w-full p-2 border rounded">
+                <input type="text" name="middlename" id="middleName" class="w-full p-2 border rounded">
             </div>
             <div>
                 <label class="block font-semibold mb-1">Course</label>
