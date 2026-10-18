@@ -2,7 +2,6 @@ document.getElementById('userFormA').addEventListener('submit', function(event) 
 
     const lastname = document.getElementById('lastName').value.trim();
     const firstname = document.getElementById('firstName').value.trim();
-    const middlename = document.getElementById('middleName').value.trim();
     const fullname = document.getElementById('fullName').value.trim();
 
     const mobile = document.getElementById('mobileNumber').value.trim();
@@ -22,12 +21,6 @@ document.getElementById('userFormA').addEventListener('submit', function(event) 
 
     if (!nameRegex.test(firstname)) {
         alert("Invalid First Name.");
-        event.preventDefault();
-        return;
-    }
-
-    if (!nameRegex.test(middlename)) {
-        alert("Invalid Middle Name.");
         event.preventDefault();
         return;
     }

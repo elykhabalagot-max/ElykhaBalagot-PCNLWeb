@@ -75,7 +75,7 @@ CREATE TABLE `students` (
   `Sex` varchar(100) NOT NULL,
   `Lastname` varchar(100) NOT NULL,
   `Firstname` varchar(100) NOT NULL,
-  `Middlename` varchar(100) NOT NULL,
+  `Middlename` varchar(100),
   `Course` varchar(50) NOT NULL,
   `Yearlevel` varchar(50) NOT NULL,
   `SAddress` varchar(255) NOT NULL,
