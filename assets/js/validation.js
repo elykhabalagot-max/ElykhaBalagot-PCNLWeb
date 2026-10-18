@@ -65,7 +65,7 @@ document.getElementById('userForm').addEventListener('submit', function(event) {
         return;
     }
     if (middlename !== "") {
-        if (!nameRegex.test(firstname)) {
+        if (!nameRegex.test(middlename)) {
             alert("Invalid Name: Must start with an uppercase letter and cannot contain numbers or special symbols.");
             event.preventDefault(); 
             return;
