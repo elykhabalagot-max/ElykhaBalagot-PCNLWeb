@@ -180,7 +180,7 @@ include("UI/navheaderuser.php");
                     </div>
                     <div>
                         <label class="block text-gray-900 text-sm font-bold mb-1">Middle Name</label>
-                        <input type="text" name="middlename" id="middlename" class="w-full px-3 py-2 border rounded-lg" >
+                        <input type="text" name="middlename" id="middleName" class="w-full px-3 py-2 border rounded-lg" >
                     </div>
                 </div>
 
