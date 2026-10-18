@@ -8,7 +8,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'student' || !isset($_
 include("UI/head.php");
 include("UI/navheaderuser.php");
 ?>
-<div class="w-full px-6 md:px-10 space-y-8 pt-24 pb-24 md:ml-80 md:w-[calc(100%-20rem)]">
+<div class="w-full px-6 md:px-10 space-y-8 pt-24 pb-24 md:w-full">
     <div class="shadow-lg rounded-lg bg-grey-900/20 border border-blue-900 px-6 md:px-10 py-6 md:py-10">
         <h1 class="font-extrabold mt-10 text-3xl text-blue-900"style="text-align: center;">OFFICIAL ENROLLMENT RECEIPT</h1>
         <p class="text-md text-gray-900" style="text-align: center;">Philippine College of Northwestern Luzon</p>

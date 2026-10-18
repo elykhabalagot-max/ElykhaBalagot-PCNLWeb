@@ -46,7 +46,8 @@ function toggleSidebar() {
 document.getElementById('userForm').addEventListener('submit', function(event) {
     const lastname = document.getElementById('lastName').value.trim();
     const firstname = document.getElementById('firstName').value.trim();
-    const fullname = document.getElementById('fullName').value.trim()
+    const middlename = document.getElementById('middleName').value.trim();
+    const fullname = document.getElementById('fullName').value.trim();
     const mobile = document.getElementById('mobileNumber').value.trim();
     const pmobile = document.getElementById('pmobileNumber').value.trim();
     const email = document.getElementById('emailAddress').value.trim();
@@ -62,6 +63,13 @@ document.getElementById('userForm').addEventListener('submit', function(event) {
         alert("Invalid Name: Must start with an uppercase letter and cannot contain numbers or special symbols.");
         event.preventDefault(); 
         return;
+    }
+    if (middlename !== "") {
+        if (!nameRegex.test(firstname)) {
+            alert("Invalid Name: Must start with an uppercase letter and cannot contain numbers or special symbols.");
+            event.preventDefault(); 
+            return;
+        }
     }
     if (!nameRegex.test(fullname)) {
         alert("Invalid Name: Must start with an uppercase letter and cannot contain numbers or special symbols.");
@@ -94,6 +102,7 @@ document.getElementById('userForm').addEventListener('submit', function(event) {
 function validateRow(studentId) {
     const lastname = document.getElementById('lastName-' + studentId).value.trim();
     const firstname = document.getElementById('firstName-' + studentId).value.trim();
+    const middlename = document.getElementById('middleName-'+ studentId).value.trim();
     const fullname = document.getElementById('fullName-' + studentId).value.trim();
     const mobile = document.getElementById('mobileNumber-' + studentId).value.trim();
     const pmobile = document.getElementById('pmobileNumber-' + studentId).value.trim();
@@ -114,6 +123,13 @@ function validateRow(studentId) {
         alert("Invalid First Name: Must start with an uppercase letter and cannot contain numbers or special symbols.");
         document.getElementById('firstName-' + studentId).focus();
         return false;
+    }
+    if (middlename !== "") {
+        if (!nameRegex.test(middlename)) {
+            alert("Invalid Middle Name: Must start with an uppercase letter and cannot contain numbers or special symbols.");
+            document.getElementById('middleName-' + studentId).focus();
+            return false;
+        }
     }
 
     if (!nameRegex.test(fullname)) {
