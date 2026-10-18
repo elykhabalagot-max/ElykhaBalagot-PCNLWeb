@@ -13,17 +13,17 @@ $error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user_id = $_SESSION['user_id'];
     
-    $type       = $_POST['type'];
+    $type        = $_POST['type'];
     $iotstudent  = $_POST['iotstudent']; 
     $semester    = $_POST['semester'];   
     $school_year = $_POST['school_year'];
-    $summer      = $_POST['summer'];   
-    $sex         = $_POST['sex'];        
+    $summer      = $_POST['summer'];       
+    $sex         = $_POST['sex'];           
     $lastname    = $_POST['lastname'];  
     $firstname   = $_POST['firstname'];  
     $middlename  = $_POST['middlename']; 
     $course      = $_POST['course'];  
-    $yearlevel   = $_POST['yearlevel'];  
+    $yearlevel   = $_POST['yearlevel'];   
     $s_address   = $_POST['s_address']; 
     $s_number    = $_POST['s_number']; 
 
@@ -45,45 +45,59 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $check_res = mysqli_stmt_get_result($check_stmt);
     $existing_student = mysqli_fetch_assoc($check_res);
 
-    if ($existing_student) {
-        $student_id = $existing_student['StudentId'];
-        
-        $query = "UPDATE students SET StudentType = ?, Iotstudent = ?, Semester = ?, SchoolYear = ?, Summer = ?, Sex = ?, Lastname = ?, Firstname = ?, Middlename = ?, Course = ?, Yearlevel = ?, SAddress = ?, SNumber = ?, SEmail = ?, PFullname = ?, PAddress = ?, PNumber = ?, PEmail = ? WHERE UserId = ?";
-        
-        $stmt = mysqli_prepare($conn, $query);
-        if ($stmt === false) {
-            die("Prepare failed: " . mysqli_error($conn));
-        }
-        mysqli_stmt_bind_param($stmt, "ssssssssssssssssssi", $type, $iotstudent, $semester, $school_year, $summer, $sex, $lastname, $firstname, $middlename, $course, $yearlevel, $s_address, $s_number, $s_email, $p_fullname, $p_address, $p_number, $p_email, $user_id);
-
+    if ($existing_student && $iotstudent !== 'Old Student') {
+        $error = "Enrollment failed: This account already has an existing student record. Please select 'Old Student' in the student status column to proceed.";
     } else {
-        $query = "INSERT INTO students (UserId, StudentType, Iotstudent, Semester, SchoolYear, Summer, Sex, Lastname, Firstname, Middlename, Course, Yearlevel, SAddress, SNumber, SEmail, PFullname, PAddress, PNumber, PEmail) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        
-        $stmt = mysqli_prepare($conn, $query);
-        if ($stmt === false) {
-            die("Prepare failed: " . mysqli_error($conn));
+        try {
+            if ($existing_student) {
+                $student_id = $existing_student['StudentId'];
+                
+                $query = "UPDATE students SET StudentType = ?, Iotstudent = ?, Semester = ?, SchoolYear = ?, Summer = ?, Sex = ?, Lastname = ?, Firstname = ?, Middlename = ?, Course = ?, Yearlevel = ?, SAddress = ?, SNumber = ?, SEmail = ?, PFullname = ?, PAddress = ?, PNumber = ?, PEmail = ? WHERE UserId = ?";
+                
+                $stmt = mysqli_prepare($conn, $query);
+                if ($stmt === false) {
+                    throw new Exception("Prepare failed: " . mysqli_error($conn));
+                }
+                
+                mysqli_stmt_bind_param($stmt, "ssssssssssssssssssi", $type, $iotstudent, $semester, $school_year, $summer, $sex, $lastname, $firstname, $middlename, $course, $yearlevel, $s_address, $s_number, $s_email, $p_fullname, $p_address, $p_number, $p_email, $user_id);
+
+            } else {
+                $query = "INSERT INTO students (UserId, StudentType, Iotstudent, Semester, SchoolYear, Summer, Sex, Lastname, Firstname, Middlename, Course, Yearlevel, SAddress, SNumber, SEmail, PFullname, PAddress, PNumber, PEmail) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                
+                $stmt = mysqli_prepare($conn, $query);
+                if ($stmt === false) {
+                    throw new Exception("Prepare failed: " . mysqli_error($conn));
+                }
+
+                mysqli_stmt_bind_param($stmt, "issssssssssssssssss", $user_id, $type, $iotstudent, $semester, $school_year, $summer, $sex, $lastname, $firstname, $middlename, $course, $yearlevel, $s_address, $s_number, $s_email, $p_fullname, $p_address, $p_number, $p_email);
+            }
+
+            mysqli_stmt_execute($stmt);
+
+            if ($existing_student) {
+                $_SESSION['student_id'] = $student_id;
+            } else {
+                $_SESSION['student_id'] = mysqli_insert_id($conn);
+            }
+
+            $_SESSION['course'] = $course;
+            $_SESSION['yearlevel'] = $yearlevel;
+            $_SESSION['semester'] = $semester;
+            $_SESSION['fullname'] = $firstname . ' ' . $lastname;
+            $_SESSION['timeenrolled'] = true;
+
+            header("Location: subject.php");
+            exit();
+
+        } catch (mysqli_sql_exception $e) {
+            if ($e->getCode() === 1062) {
+                $error = "Database Error: The student email address '{$s_email}' is already registered for another account.";
+            } else {
+                $error = "Database Error: " . $e->getMessage();
+            }
+        } catch (Exception $e) {
+            $error = $e->getMessage();
         }
-
-        mysqli_stmt_bind_param($stmt, "issssssssssssssssss", $user_id, $type, $iotstudent, $semester, $school_year, $summer, $sex, $lastname, $firstname, $middlename, $course, $yearlevel, $s_address, $s_number, $s_email, $p_fullname, $p_address, $p_number, $p_email);
-    }
-
-    if (mysqli_stmt_execute($stmt)) {
-        if ($existing_student) {
-            $_SESSION['student_id'] = $student_id;
-        } else {
-            $_SESSION['student_id'] = mysqli_insert_id($conn);
-        }
-
-        $_SESSION['course'] = $course;
-        $_SESSION['yearlevel'] = $yearlevel;
-        $_SESSION['semester'] = $semester;
-        $_SESSION['fullname'] = $firstname . ' ' . $lastname;
-        $_SESSION['timeenrolled'] = true;
-
-        header("Location: subject.php");
-        exit();
-    } else {
-        $error = "Failed to submit enrollment form. Please try again: " . mysqli_stmt_error($stmt);
     }
 }
 include("UI/head.php");
@@ -98,7 +112,7 @@ include("UI/navheaderuser.php");
                 <div class="bg-red-900 text-white p-3 rounded mb-4 text-sm"><?= htmlspecialchars($error) ?></div>
             <?php endif; ?>
             
-            <form action="registrationform.php" id="userFormA" method="POST" class="space-y-4">
+            <form id="userFormA" method="POST" action="registrationform.php">
                 <h1 class="text-lg font-bold text-blue-900 pt-4 border-t">Student Information</h1>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                      <div>
@@ -166,7 +180,7 @@ include("UI/navheaderuser.php");
                     </div>
                     <div>
                         <label class="block text-gray-900 text-sm font-bold mb-1">Middle Name</label>
-                        <input type="text" name="middlename" id="middleName" class="w-full px-3 py-2 border rounded-lg" required>
+                        <input type="text" name="middlename" id="middlename" class="w-full px-3 py-2 border rounded-lg" >
                     </div>
                 </div>
 

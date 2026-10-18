@@ -15,18 +15,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-        $stmt = mysqli_prepare($conn, "INSERT INTO users (Fullname, Email, Password, Role) VALUES (?, ?, ?, ?)");
-        mysqli_stmt_bind_param($stmt, "ssss", $fullname, $email, $hashed_password, $role);
+        try {
+            $stmt = mysqli_prepare($conn, "INSERT INTO users (Fullname, Email, Password, Role) VALUES (?, ?, ?, ?)");
+            if ($stmt === false) {
+                throw new Exception("Prepare failed: " . mysqli_error($conn));
+            }
 
-        if (mysqli_stmt_execute($stmt)) {
+            mysqli_stmt_bind_param($stmt, "ssss", $fullname, $email, $hashed_password, $role);
+            mysqli_stmt_execute($stmt);
+
             $_SESSION['user_id'] = mysqli_insert_id($conn);
             $_SESSION['fullname'] = $fullname;
             $_SESSION['role'] = $role;
 
             header("Location: login.php");
             exit();
-        } else {
-            $error = "Registration failed. Email might already be in use.";
+
+        } catch (mysqli_sql_exception $e) {
+            if ($e->getCode() === 1062) {
+                $error = "Registration failed. Email might already be in use.";
+            } else {
+                $error = "Database Error: " . $e->getMessage();
+            }
+        } catch (Exception $e) {
+            $error = $e->getMessage();
         }
     }
 }

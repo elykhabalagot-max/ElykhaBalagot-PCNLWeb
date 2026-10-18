@@ -352,7 +352,7 @@ include ('UI/sidenav.php');
                         </select></td>
                         <td class="p-2 border"><input type="text" name="lastname" id="lastName-<?= $stu['StudentId'] ?>" value="<?= htmlspecialchars($stu['Lastname']) ?>" class="w-24 border rounded p-1" required>
                         <td class="p-2 border"><input type="text" name="firstname" id="firstName-<?= $stu['StudentId'] ?>" value="<?= htmlspecialchars($stu['Firstname']) ?>" class="w-24 border rounded p-1 " required></td>
-                        <td class="p-2 border"><input type="text" name="middlename" value="<?= htmlspecialchars($stu['Middlename']) ?>" class="w-24 border rounded p-1"></td>
+                        <td class="p-2 border"><input type="text" name="middlename" id="middleName-<?= $stu['StudentId'] ?>" value="<?= htmlspecialchars($stu['Middlename']) ?>" class="w-24 border rounded p-1"></td>
                         <td class="p-2 border"><select name="course" class="w-24 border rounded p-1" required>
                             <option value="" disabled <?= empty($stu['Course']) ? 'selected' : '' ?>>Select Course</option>
                             <option value="BSIT" <?= ($stu['Course'] ?? '') === 'BSIT' ? 'selected' : '' ?>>BS Information Technology (BSIT)</option>
