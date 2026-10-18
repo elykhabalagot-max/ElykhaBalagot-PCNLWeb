@@ -2,6 +2,7 @@ document.getElementById('userFormA').addEventListener('submit', function(event) 
 
     const lastname = document.getElementById('lastName').value.trim();
     const firstname = document.getElementById('firstName').value.trim();
+    const middlename = document.getElementById('middleName').value.trim();
     const fullname = document.getElementById('fullName').value.trim();
 
     const mobile = document.getElementById('mobileNumber').value.trim();
@@ -25,7 +26,14 @@ document.getElementById('userFormA').addEventListener('submit', function(event) 
         event.preventDefault();
         return;
     }
-
+    if (middlename !== "") {
+        if (!nameRegex.test(middlename)) {
+            console.log("Failed at: Middle Name");
+            alert("Invalid Middle Name. It must start with a capital letter and cannot contain numbers or special characters.");
+            event.preventDefault();
+            return;
+        }
+    }
     if (!nameRegex.test(fullname)) {
         console.log("Failed at: Parent Name");
         alert("Invalid Parent/Guardian Name.");
