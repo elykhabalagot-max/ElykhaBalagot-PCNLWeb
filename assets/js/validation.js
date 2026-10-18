@@ -46,7 +46,6 @@ function toggleSidebar() {
 document.getElementById('userForm').addEventListener('submit', function(event) {
     const lastname = document.getElementById('lastName').value.trim();
     const firstname = document.getElementById('firstName').value.trim();
-    const middlename = document.getElementById('middleName').value.trim();
     const fullname = document.getElementById('fullName').value.trim()
     const mobile = document.getElementById('mobileNumber').value.trim();
     const pmobile = document.getElementById('pmobileNumber').value.trim();
